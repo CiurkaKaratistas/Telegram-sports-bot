@@ -233,7 +233,17 @@ def run_test_mode():
 # === PALEIDIMAS ===
 history = load_history()
 
-# Paleidžiam testą (išsiųs signalą į Telegram)
-if __name__ == '__main__':
-    history = load_history()
-    # run_test_mode()  # Atkomentuok šią eilutę, kai nori testuoti
+# Paleidžiame ciklą realioms varžyboms stebėti
+while True:
+    try:
+        update_results(history)  # atnaujina senų signalų rezultatus
+        matches = get_live_matches()
+        for match in matches:
+            stats = get_statistics(match['fixture']['id'])
+            if stats:
+                analyze_and_signal(match, stats, history)
+        time.sleep(60)  # laukia 60 sek.
+    except Exception as e:
+        print("Klaida cikle:", e)
+        time.sleep(30)
+
