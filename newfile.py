@@ -234,4 +234,6 @@ def run_test_mode():
 history = load_history()
 
 # Paleidžiam testą (išsiųs signalą į Telegram)
-run_test_mode()
+if __name__ == '__main__':
+    history = load_history()
+    # run_test_mode()  # Atkomentuok šią eilutę, kai nori testuoti
